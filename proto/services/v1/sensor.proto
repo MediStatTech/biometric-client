@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package services.v1;
+
+option go_package = "github.com/MediStatTech/biometric-client/pb/go/services/v1";
+
+import "models/v1/sensor.proto";
+
+// =====================
+// SensorService
+// =====================
+service SensorService {
+  rpc SensorCreate(SensorCreateRequest) returns (SensorCreateReply);
+  rpc SensorGet(SensorGetRequest) returns (SensorGetReply);
+}
+
+
+// =====================
+// SensorCreate
+// =====================
+message SensorCreateRequest {
+  models.v1.Sensor.Create sensor = 1;
+}
+
+message SensorCreateReply {
+    models.v1.Sensor.Read sensor = 1;
+}
+
+// =====================
+// SensorGet
+// =====================
+message SensorGetRequest {
+}
+
+message SensorGetReply {
+    repeated models.v1.Sensor.Read sensors = 1;
+}

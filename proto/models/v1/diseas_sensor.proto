@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package models.v1;
+
+option go_package = "github.com/MediStatTech/biometric-client/pb/go/models/v1";
+
+message DiseasSensor {
+  message Read {
+    string diseas_id = 1;
+    string sensor_id = 2;
+  }
+
+  message Create {
+    string diseas_id = 1;
+    string sensor_id = 2;
+  }
+}

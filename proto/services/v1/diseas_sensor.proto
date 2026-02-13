@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package services.v1;
+
+option go_package = "github.com/MediStatTech/biometric-client/pb/go/services/v1";
+
+import "models/v1/diseas_sensor.proto";
+
+// =====================
+// DiseasSensorService
+// =====================
+service DiseasSensorService {
+  rpc DiseasSensorCreate(DiseasSensorCreateRequest) returns (DiseasSensorCreateReply);
+  rpc DiseasSensorGet(DiseasSensorGetRequest) returns (DiseasSensorGetReply);
+}
+
+
+// =====================
+// DiseasSensorCreate
+// =====================
+message DiseasSensorCreateRequest {
+  models.v1.DiseasSensor.Create diseas_sensor = 1;
+}
+
+message DiseasSensorCreateReply {
+    models.v1.DiseasSensor.Read diseas_sensor = 1;
+}
+
+// =====================
+// DiseasSensorGet
+// =====================
+message DiseasSensorGetRequest {
+  string diseas_id = 1;
+}
+
+message DiseasSensorGetReply {
+    repeated models.v1.DiseasSensor.Read diseas_sensors = 1;
+}

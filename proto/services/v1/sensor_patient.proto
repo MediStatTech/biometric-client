@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package services.v1;
+
+option go_package = "github.com/MediStatTech/biometric-client/pb/go/services/v1";
+
+import "models/v1/sensor_patient.proto";
+
+// =====================
+// SensorPatientService
+// =====================
+service SensorPatientService {
+  rpc SensorPatientCreate(SensorPatientCreateRequest) returns (SensorPatientCreateReply);
+  rpc SensorPatientGet(SensorPatientGetRequest) returns (SensorPatientGetReply);
+  rpc SensorPatientRetrieve(SensorPatientRetrieveRequest) returns (SensorPatientRetrieveReply);
+}
+
+
+// =====================
+// SensorPatientCreate
+// =====================
+message SensorPatientCreateRequest {
+    string patient_id = 1;
+    string sensor_id = 2;
+}
+
+message SensorPatientCreateReply {
+  models.v1.SensorPatient.Read sensor = 1;
+}
+
+// =====================
+// SensorPatientGet
+// =====================
+message SensorPatientGetRequest {
+    string sensor_id = 1;
+}
+
+message SensorPatientGetReply {
+  repeated models.v1.SensorPatient.Read sensors = 1;
+}
+
+// =====================
+// SensorPatientRetrieve
+// =====================
+message SensorPatientRetrieveRequest {
+    string sensor_id = 1;
+    string patient_id = 2;
+}
+
+message SensorPatientRetrieveReply {
+  models.v1.SensorPatient.Read sensor = 1;
+}
