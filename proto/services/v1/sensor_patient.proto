@@ -25,7 +25,7 @@ message SensorPatientCreateRequest {
 }
 
 message SensorPatientCreateReply {
-  models.v1.SensorPatient.Read sensor = 1;
+  models.v1.SensorPatient.Read sensor_patient = 1;
 }
 
 // =====================
@@ -36,7 +36,7 @@ message SensorPatientGetRequest {
 }
 
 message SensorPatientGetReply {
-  repeated models.v1.SensorPatient.Read sensors = 1;
+  repeated models.v1.SensorPatient.Read sensor_patients = 1;
 }
 
 // =====================
@@ -48,5 +48,5 @@ message SensorPatientRetrieveRequest {
 }
 
 message SensorPatientRetrieveReply {
-  models.v1.SensorPatient.Read sensor = 1;
+  models.v1.SensorPatient.Read sensor_patient = 1;
 }
