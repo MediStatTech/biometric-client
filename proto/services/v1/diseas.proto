@@ -11,7 +11,7 @@ import "models/v1/diseas.proto";
 // =====================
 service DiseasService {
   rpc DiseasCreate(DiseasCreateRequest) returns (DiseasCreateReply);
-  rpc DiseasGet(DiseasCreateRequest) returns (DiseasCreateReply);
+  rpc DiseasGet(DiseasGetRequest) returns (DiseasGetReply);
 }
 
 

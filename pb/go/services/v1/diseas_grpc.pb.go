@@ -28,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DiseasServiceClient interface {
 	DiseasCreate(ctx context.Context, in *DiseasCreateRequest, opts ...grpc.CallOption) (*DiseasCreateReply, error)
-	DiseasGet(ctx context.Context, in *DiseasCreateRequest, opts ...grpc.CallOption) (*DiseasCreateReply, error)
+	DiseasGet(ctx context.Context, in *DiseasGetRequest, opts ...grpc.CallOption) (*DiseasGetReply, error)
 }
 
 type diseasServiceClient struct {
@@ -48,8 +48,8 @@ func (c *diseasServiceClient) DiseasCreate(ctx context.Context, in *DiseasCreate
 	return out, nil
 }
 
-func (c *diseasServiceClient) DiseasGet(ctx context.Context, in *DiseasCreateRequest, opts ...grpc.CallOption) (*DiseasCreateReply, error) {
-	out := new(DiseasCreateReply)
+func (c *diseasServiceClient) DiseasGet(ctx context.Context, in *DiseasGetRequest, opts ...grpc.CallOption) (*DiseasGetReply, error) {
+	out := new(DiseasGetReply)
 	err := c.cc.Invoke(ctx, DiseasService_DiseasGet_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func (c *diseasServiceClient) DiseasGet(ctx context.Context, in *DiseasCreateReq
 // for forward compatibility
 type DiseasServiceServer interface {
 	DiseasCreate(context.Context, *DiseasCreateRequest) (*DiseasCreateReply, error)
-	DiseasGet(context.Context, *DiseasCreateRequest) (*DiseasCreateReply, error)
+	DiseasGet(context.Context, *DiseasGetRequest) (*DiseasGetReply, error)
 }
 
 // UnimplementedDiseasServiceServer should be embedded to have forward compatible implementations.
@@ -72,7 +72,7 @@ type UnimplementedDiseasServiceServer struct {
 func (UnimplementedDiseasServiceServer) DiseasCreate(context.Context, *DiseasCreateRequest) (*DiseasCreateReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DiseasCreate not implemented")
 }
-func (UnimplementedDiseasServiceServer) DiseasGet(context.Context, *DiseasCreateRequest) (*DiseasCreateReply, error) {
+func (UnimplementedDiseasServiceServer) DiseasGet(context.Context, *DiseasGetRequest) (*DiseasGetReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DiseasGet not implemented")
 }
 
@@ -106,7 +106,7 @@ func _DiseasService_DiseasCreate_Handler(srv interface{}, ctx context.Context, d
 }
 
 func _DiseasService_DiseasGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DiseasCreateRequest)
+	in := new(DiseasGetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -118,7 +118,7 @@ func _DiseasService_DiseasGet_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: DiseasService_DiseasGet_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiseasServiceServer).DiseasGet(ctx, req.(*DiseasCreateRequest))
+		return srv.(DiseasServiceServer).DiseasGet(ctx, req.(*DiseasGetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
