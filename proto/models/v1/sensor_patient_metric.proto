@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package models.v1;
+
+option go_package = "github.com/MediStatTech/biometric-client/pb/go/models/v1";
+
+import "google/protobuf/timestamp.proto";
+
+message SensorPatientMetric {
+  message Read {
+    string sensor_id = 1;
+    string patient_id = 2;
+    double value = 3;
+    string symbol = 4;
+    google.protobuf.Timestamp created_at = 5;
+  }
+}
