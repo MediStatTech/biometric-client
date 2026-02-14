@@ -14,5 +14,6 @@ message Sensor {
   message Create {
     string name = 1;
     string code = 2;
+    string symbol = 3;
   }
 }
