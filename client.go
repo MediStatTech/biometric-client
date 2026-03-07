@@ -17,10 +17,11 @@ type Facade struct {
 	log  *log.Logger
 
 	// Services clients
-	DiseasSensor  services_v1.DiseasSensorServiceClient
-	Diseas        services_v1.DiseasServiceClient
-	Sensor        services_v1.SensorServiceClient
-	SensorPatient services_v1.SensorPatientServiceClient
+	DiseasSensor        services_v1.DiseasSensorServiceClient
+	Diseas              services_v1.DiseasServiceClient
+	Sensor              services_v1.SensorServiceClient
+	SensorPatient       services_v1.SensorPatientServiceClient
+	SensorPatientMetric services_v1.SensorPatientMetricServiceClient
 }
 
 func New(
@@ -74,12 +75,13 @@ func New(
 	})
 
 	return &Facade{
-		conn:          conn,
-		log:           o.Log,
-		DiseasSensor:  services_v1.NewDiseasSensorServiceClient(conn),
-		Diseas:        services_v1.NewDiseasServiceClient(conn),
-		Sensor:        services_v1.NewSensorServiceClient(conn),
-		SensorPatient: services_v1.NewSensorPatientServiceClient(conn),
+		conn:                conn,
+		log:                 o.Log,
+		DiseasSensor:        services_v1.NewDiseasSensorServiceClient(conn),
+		Diseas:              services_v1.NewDiseasServiceClient(conn),
+		Sensor:              services_v1.NewSensorServiceClient(conn),
+		SensorPatient:       services_v1.NewSensorPatientServiceClient(conn),
+		SensorPatientMetric: services_v1.NewSensorPatientMetricServiceClient(conn),
 	}, nil
 }
 
