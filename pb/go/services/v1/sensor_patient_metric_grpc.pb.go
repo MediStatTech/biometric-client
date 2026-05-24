@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	SensorPatientMetricService_SensorPatientMetricGet_FullMethodName = "/services.v1.SensorPatientMetricService/SensorPatientMetricGet"
+	SensorPatientMetricService_SensorPatientMetricGet_FullMethodName        = "/services.v1.SensorPatientMetricService/SensorPatientMetricGet"
+	SensorPatientMetricService_SensorPatientMetricHistoryGet_FullMethodName = "/services.v1.SensorPatientMetricService/SensorPatientMetricHistoryGet"
 )
 
 // SensorPatientMetricServiceClient is the client API for SensorPatientMetricService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SensorPatientMetricServiceClient interface {
 	SensorPatientMetricGet(ctx context.Context, in *SensorPatientMetricGetRequest, opts ...grpc.CallOption) (*SensorPatientMetricGetReply, error)
+	SensorPatientMetricHistoryGet(ctx context.Context, in *SensorPatientMetricHistoryGetRequest, opts ...grpc.CallOption) (*SensorPatientMetricHistoryGetReply, error)
 }
 
 type sensorPatientMetricServiceClient struct {
@@ -46,11 +48,21 @@ func (c *sensorPatientMetricServiceClient) SensorPatientMetricGet(ctx context.Co
 	return out, nil
 }
 
+func (c *sensorPatientMetricServiceClient) SensorPatientMetricHistoryGet(ctx context.Context, in *SensorPatientMetricHistoryGetRequest, opts ...grpc.CallOption) (*SensorPatientMetricHistoryGetReply, error) {
+	out := new(SensorPatientMetricHistoryGetReply)
+	err := c.cc.Invoke(ctx, SensorPatientMetricService_SensorPatientMetricHistoryGet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SensorPatientMetricServiceServer is the server API for SensorPatientMetricService service.
 // All implementations should embed UnimplementedSensorPatientMetricServiceServer
 // for forward compatibility
 type SensorPatientMetricServiceServer interface {
 	SensorPatientMetricGet(context.Context, *SensorPatientMetricGetRequest) (*SensorPatientMetricGetReply, error)
+	SensorPatientMetricHistoryGet(context.Context, *SensorPatientMetricHistoryGetRequest) (*SensorPatientMetricHistoryGetReply, error)
 }
 
 // UnimplementedSensorPatientMetricServiceServer should be embedded to have forward compatible implementations.
@@ -59,6 +71,9 @@ type UnimplementedSensorPatientMetricServiceServer struct {
 
 func (UnimplementedSensorPatientMetricServiceServer) SensorPatientMetricGet(context.Context, *SensorPatientMetricGetRequest) (*SensorPatientMetricGetReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SensorPatientMetricGet not implemented")
+}
+func (UnimplementedSensorPatientMetricServiceServer) SensorPatientMetricHistoryGet(context.Context, *SensorPatientMetricHistoryGetRequest) (*SensorPatientMetricHistoryGetReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SensorPatientMetricHistoryGet not implemented")
 }
 
 // UnsafeSensorPatientMetricServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -90,6 +105,24 @@ func _SensorPatientMetricService_SensorPatientMetricGet_Handler(srv interface{},
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SensorPatientMetricService_SensorPatientMetricHistoryGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SensorPatientMetricHistoryGetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SensorPatientMetricServiceServer).SensorPatientMetricHistoryGet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SensorPatientMetricService_SensorPatientMetricHistoryGet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SensorPatientMetricServiceServer).SensorPatientMetricHistoryGet(ctx, req.(*SensorPatientMetricHistoryGetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SensorPatientMetricService_ServiceDesc is the grpc.ServiceDesc for SensorPatientMetricService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -100,6 +133,10 @@ var SensorPatientMetricService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SensorPatientMetricGet",
 			Handler:    _SensorPatientMetricService_SensorPatientMetricGet_Handler,
+		},
+		{
+			MethodName: "SensorPatientMetricHistoryGet",
+			Handler:    _SensorPatientMetricService_SensorPatientMetricHistoryGet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

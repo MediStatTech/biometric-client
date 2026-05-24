@@ -4,10 +4,12 @@ package services.v1;
 
 option go_package = "github.com/MediStatTech/biometric-client/pb/go/services/v1";
 
+import "google/protobuf/timestamp.proto";
 import "models/v1/sensor_patient_metric.proto";
 
 service SensorPatientMetricService {
   rpc SensorPatientMetricGet(SensorPatientMetricGetRequest) returns (SensorPatientMetricGetReply);
+  rpc SensorPatientMetricHistoryGet(SensorPatientMetricHistoryGetRequest) returns (SensorPatientMetricHistoryGetReply);
 }
 
 message SensorPatientMetricGetRequest {
@@ -17,4 +19,18 @@ message SensorPatientMetricGetRequest {
 
 message SensorPatientMetricGetReply {
   repeated models.v1.SensorPatientMetric.Read measurements = 1;
+}
+
+message SensorPatientMetricHistoryGetRequest {
+  string sensor_id  = 1;
+  string patient_id = 2;
+  google.protobuf.Timestamp start_time = 3;
+  google.protobuf.Timestamp end_time   = 4;
+  int32 limit  = 5;
+  int32 offset = 6;
+}
+
+message SensorPatientMetricHistoryGetReply {
+  repeated models.v1.SensorPatientMetric.Read measurements = 1;
+  int32 total = 2;
 }
