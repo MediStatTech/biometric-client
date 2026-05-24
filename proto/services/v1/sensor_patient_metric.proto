@@ -6,22 +6,15 @@ option go_package = "github.com/MediStatTech/biometric-client/pb/go/services/v1"
 
 import "models/v1/sensor_patient_metric.proto";
 
-// =====================
-// SensorPatientMetricService
-// =====================
 service SensorPatientMetricService {
   rpc SensorPatientMetricGet(SensorPatientMetricGetRequest) returns (SensorPatientMetricGetReply);
 }
 
-
-// =====================
-// SensorPatientMetricGet
-// =====================
 message SensorPatientMetricGetRequest {
-  string sensor_id = 1;
+  string sensor_id  = 1;
   string patient_id = 2;
 }
 
 message SensorPatientMetricGetReply {
-  repeated models.v1.SensorPatientMetric.Read sensor_patient_metrics = 1;
+  repeated models.v1.SensorPatientMetric.Read measurements = 1;
 }

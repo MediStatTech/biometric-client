@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package models.v1;
+
+option go_package = "github.com/MediStatTech/biometric-client/pb/go/models/v1";
+
+message MetricType {
+  message Read {
+    string metric_type_id = 1;
+    string sensor_id      = 2;
+    string code           = 3;
+    string name           = 4;
+    string symbol         = 5;
+    double min_value      = 6;
+    double max_value      = 7;
+  }
+
+  message Create {
+    string code      = 1;
+    string name      = 2;
+    string symbol    = 3;
+    double min_value = 4;
+    double max_value = 5;
+  }
+}

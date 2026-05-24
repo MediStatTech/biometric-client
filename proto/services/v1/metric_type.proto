@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package services.v1;
+
+option go_package = "github.com/MediStatTech/biometric-client/pb/go/services/v1";
+
+import "models/v1/metric_type.proto";
+
+service MetricTypeService {
+  rpc MetricTypeCreate(MetricTypeCreateRequest) returns (MetricTypeCreateReply);
+  rpc MetricTypeGet(MetricTypeGetRequest) returns (MetricTypeGetReply);
+}
+
+message MetricTypeCreateRequest {
+  string sensor_id = 1;
+  models.v1.MetricType.Create metric_type = 2;
+}
+
+message MetricTypeCreateReply {
+  models.v1.MetricType.Read metric_type = 1;
+}
+
+message MetricTypeGetRequest {
+  string sensor_id = 1;
+}
+
+message MetricTypeGetReply {
+  repeated models.v1.MetricType.Read metric_types = 1;
+}

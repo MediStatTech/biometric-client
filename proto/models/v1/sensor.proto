@@ -4,17 +4,20 @@ package models.v1;
 
 option go_package = "github.com/MediStatTech/biometric-client/pb/go/models/v1";
 
+import "models/v1/metric_type.proto";
+
 message Sensor {
   message Read {
     string sensor_id = 1;
-    string name = 2;
-    string code = 3;
-    string symbol = 4;
+    string name      = 2;
+    string code      = 3;
+    string symbol    = 4;
+    repeated MetricType.Read metric_types = 5;
   }
 
   message Create {
-    string name = 1;
-    string code = 2;
+    string name   = 1;
+    string code   = 2;
     string symbol = 3;
   }
 }
