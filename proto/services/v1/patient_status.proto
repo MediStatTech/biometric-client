@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package services.v1;
+
+option go_package = "github.com/MediStatTech/biometric-client/pb/go/services/v1";
+
+service PatientStatusService {
+  rpc PatientStatusGetBatch(PatientStatusGetBatchRequest) returns (PatientStatusGetBatchReply);
+}
+
+message PatientStatusGetBatchRequest {
+  repeated string patient_ids = 1;
+}
+
+message PatientStatusGetBatchReply {
+  repeated PatientStatus patient_statuses = 1;
+}
+
+message PatientStatus {
+  string patient_id = 1;
+  string status     = 2;
+}
