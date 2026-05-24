@@ -4,8 +4,11 @@ package services.v1;
 
 option go_package = "github.com/MediStatTech/biometric-client/pb/go/services/v1";
 
+import "google/protobuf/timestamp.proto";
+
 service PatientStatusService {
   rpc PatientStatusGetBatch(PatientStatusGetBatchRequest) returns (PatientStatusGetBatchReply);
+  rpc PatientPanicTrigger(PatientPanicTriggerRequest)     returns (PatientPanicTriggerReply);
 }
 
 message PatientStatusGetBatchRequest {
@@ -19,4 +22,13 @@ message PatientStatusGetBatchReply {
 message PatientStatus {
   string patient_id = 1;
   string status     = 2;
+}
+
+message PatientPanicTriggerRequest {
+  string patient_id       = 1;
+  int32  duration_seconds = 2;
+}
+
+message PatientPanicTriggerReply {
+  google.protobuf.Timestamp panic_until = 1;
 }

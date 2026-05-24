@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	PatientStatusService_PatientStatusGetBatch_FullMethodName = "/services.v1.PatientStatusService/PatientStatusGetBatch"
+	PatientStatusService_PatientPanicTrigger_FullMethodName   = "/services.v1.PatientStatusService/PatientPanicTrigger"
 )
 
 // PatientStatusServiceClient is the client API for PatientStatusService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PatientStatusServiceClient interface {
 	PatientStatusGetBatch(ctx context.Context, in *PatientStatusGetBatchRequest, opts ...grpc.CallOption) (*PatientStatusGetBatchReply, error)
+	PatientPanicTrigger(ctx context.Context, in *PatientPanicTriggerRequest, opts ...grpc.CallOption) (*PatientPanicTriggerReply, error)
 }
 
 type patientStatusServiceClient struct {
@@ -46,11 +48,21 @@ func (c *patientStatusServiceClient) PatientStatusGetBatch(ctx context.Context, 
 	return out, nil
 }
 
+func (c *patientStatusServiceClient) PatientPanicTrigger(ctx context.Context, in *PatientPanicTriggerRequest, opts ...grpc.CallOption) (*PatientPanicTriggerReply, error) {
+	out := new(PatientPanicTriggerReply)
+	err := c.cc.Invoke(ctx, PatientStatusService_PatientPanicTrigger_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PatientStatusServiceServer is the server API for PatientStatusService service.
 // All implementations should embed UnimplementedPatientStatusServiceServer
 // for forward compatibility
 type PatientStatusServiceServer interface {
 	PatientStatusGetBatch(context.Context, *PatientStatusGetBatchRequest) (*PatientStatusGetBatchReply, error)
+	PatientPanicTrigger(context.Context, *PatientPanicTriggerRequest) (*PatientPanicTriggerReply, error)
 }
 
 // UnimplementedPatientStatusServiceServer should be embedded to have forward compatible implementations.
@@ -59,6 +71,9 @@ type UnimplementedPatientStatusServiceServer struct {
 
 func (UnimplementedPatientStatusServiceServer) PatientStatusGetBatch(context.Context, *PatientStatusGetBatchRequest) (*PatientStatusGetBatchReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PatientStatusGetBatch not implemented")
+}
+func (UnimplementedPatientStatusServiceServer) PatientPanicTrigger(context.Context, *PatientPanicTriggerRequest) (*PatientPanicTriggerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatientPanicTrigger not implemented")
 }
 
 // UnsafePatientStatusServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -90,6 +105,24 @@ func _PatientStatusService_PatientStatusGetBatch_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PatientStatusService_PatientPanicTrigger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatientPanicTriggerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PatientStatusServiceServer).PatientPanicTrigger(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PatientStatusService_PatientPanicTrigger_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PatientStatusServiceServer).PatientPanicTrigger(ctx, req.(*PatientPanicTriggerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PatientStatusService_ServiceDesc is the grpc.ServiceDesc for PatientStatusService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -100,6 +133,10 @@ var PatientStatusService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PatientStatusGetBatch",
 			Handler:    _PatientStatusService_PatientStatusGetBatch_Handler,
+		},
+		{
+			MethodName: "PatientPanicTrigger",
+			Handler:    _PatientStatusService_PatientPanicTrigger_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
