@@ -22,6 +22,8 @@ type Facade struct {
 	Sensor              services_v1.SensorServiceClient
 	SensorPatient       services_v1.SensorPatientServiceClient
 	SensorPatientMetric services_v1.SensorPatientMetricServiceClient
+	MetricType          services_v1.MetricTypeServiceClient
+	PatientStatus       services_v1.PatientStatusServiceClient
 }
 
 func New(
@@ -82,6 +84,8 @@ func New(
 		Sensor:              services_v1.NewSensorServiceClient(conn),
 		SensorPatient:       services_v1.NewSensorPatientServiceClient(conn),
 		SensorPatientMetric: services_v1.NewSensorPatientMetricServiceClient(conn),
+		MetricType:          services_v1.NewMetricTypeServiceClient(conn),
+		PatientStatus:       services_v1.NewPatientStatusServiceClient(conn),
 	}, nil
 }
 
